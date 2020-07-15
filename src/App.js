@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./figur.png";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    left: 0,
+    keyIsPressed: false,
+  };
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.keyDownHandler);
+    document.addEventListener("keyup", this.keyUpHandler);
+  }
+
+  keyDownHandler = () => {
+    this.setState({ left: this.state.left + 10 })
+  };
+
+  keyUpHandler = () => {
+    this.setState({ keyIsPressed: false })
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img
+            src={logo}
+            className="App-logo"
+            alt="logo"
+            style={{ position: "absolute", left: this.state.left }}
+          />
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
