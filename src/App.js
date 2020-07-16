@@ -5,6 +5,7 @@ import "./App.css";
 class App extends Component {
   state = {
     left: 0,
+    jumping: false,
   };
 
   componentDidMount() {
@@ -18,6 +19,12 @@ class App extends Component {
     if (event.keyCode === 37 && this.state.left >= 10) {
       this.setState({ left: this.state.left - 10})
     }
+    if (event.keyCode === 38 && !this.state.jumping) {
+      this.setState({ jumping: true })
+      onanimationend = () => {
+        this.setState({ jumping: false })
+      }
+    }
   };
 
   render() {
@@ -26,9 +33,10 @@ class App extends Component {
         <header className="App-header">
           <img
             src={figur}
-            className="App-logo"
+            className={this.state.jumping ? "jumping" : ""}
+            id="figur"
             alt="figur"
-            style={{ position: "absolute", left: this.state.left }}
+            style={{ left: this.state.left }}
           />
         </header>
       </div>
