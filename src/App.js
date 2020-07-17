@@ -6,40 +6,66 @@ class App extends Component {
   state = {
     left: 0,
     jumping: false,
+    keyIsPressed: false,
   };
 
   componentDidMount() {
     document.addEventListener("keydown", (event) => this.keyDownHandler(event));
+    document.addEventListener("keyup", (event) => this.keyUpHandler(event));
   }
 
+  movementRight = () => {
+    this.setState({ left: this.state.left + 10 });
+  };
+
+  movementLeft = () => {
+    this.setState({ left: this.state.left - 10 });
+  };
+
   keyDownHandler = (event) => {
-    if (event.keyCode === 39 && this.state.left < 990) {
-      this.setState({ left: this.state.left + 10 });
-    }
-    if (event.keyCode === 37 && this.state.left >= 10) {
-      this.setState({ left: this.state.left - 10})
-    }
-    if (event.keyCode === 38 && !this.state.jumping) {
-      this.setState({ jumping: true })
-      onanimationend = () => {
-        this.setState({ jumping: false })
+    if (!this.state.keyIsPressed) {
+      if (event.keyCode === 39 && this.state.left < 990) {
+        this.setState({ keyIsPressed: true });
+        this.moveRight = setInterval(this.movementRight, 20);
       }
+      if (event.keyCode === 37 && this.state.left >= 10) {
+        this.setState({ keyIsPressed: true });
+        this.moveLeft = setInterval(this.movementLeft, 20);
+      }
+    }
+
+    if (event.keyCode === 38 && !this.state.jumping) {
+      this.setState({ jumping: true });
+      onanimationend = () => {
+        this.setState({ jumping: false });
+      };
+    }
+  };
+
+  keyUpHandler = (event) => {
+    if (event.keyCode === 39) {
+      this.setState({
+        keyIsPressed: false,
+      });
+      clearInterval(this.moveRight);
+    }
+    if (event.keyCode === 37) {
+      this.setState({
+        keyIsPressed: false,
+      });
+      clearInterval(this.moveLeft);
     }
   };
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img
-            src={figur}
-            className={this.state.jumping ? "jumping" : ""}
-            id="figur"
-            alt="figur"
-            style={{ left: this.state.left }}
-          />
-        </header>
-      </div>
+        <img
+          src={figur}
+          className={this.state.jumping ? "jumping" : ""}
+          id="figur"
+          alt="figur"
+          style={{ left: this.state.left }}
+        />
     );
   }
 }
