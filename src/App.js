@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import figur from "./images/stjerne.png";
-import box from "./images/box.png"
+import box from "./images/box.png";
+import powerup from "./images/powerup.png";
 import "./App.css";
 
 class App extends Component {
@@ -8,6 +9,7 @@ class App extends Component {
     left: 0,
     jumping: false,
     keyIsPressed: false,
+    powerup: false,
   };
 
   componentDidMount() {
@@ -36,6 +38,9 @@ class App extends Component {
     }
 
     if (event.keyCode === 38 && !this.state.jumping) {
+      this.state.left > 200 &&
+        this.state.left < 400 &&
+        this.setState({ powerup: true });
       this.setState({ jumping: true });
       onanimationend = () => {
         this.setState({ jumping: false });
@@ -70,11 +75,17 @@ class App extends Component {
         />
         <img
           src={box}
-          className="box-one"
+          id="box-one"
+          className={this.state.powerup ? "bumpBox" : ""}
           alt="box"
         />
+        <img
+          src={powerup}
+          className={this.state.powerup ? "powerup" : "hidden"}
+          alt="powerup"
+        />
         <div className="ground"></div>
-        </>
+      </>
     );
   }
 }

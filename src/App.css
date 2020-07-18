@@ -5,7 +5,8 @@
 }
 
 @keyframes jump {
-  0%, 100% {
+  0%,
+  100% {
     bottom: 100px;
   }
   30% {
@@ -29,9 +30,59 @@ body {
   background-color: rgb(122, 195, 255);
 }
 
-.box-one {
+#box-one {
   position: absolute;
   height: 70px;
   bottom: 380px;
   left: 300px;
+  z-index: 2;
+}
+
+@keyframes bumpBox {
+  0%,
+  100% {
+    bottom: 380px;
+  }
+  50% {
+    bottom: 400px;
+  }
+}
+
+.bumpBox {
+  animation: bumpBox 0.3s;
+  animation-delay: 0.2s;
+}
+
+@keyframes power {
+  0%,
+  5% {
+    visibility: visible;
+    bottom: 400px;
+    left: 310px;
+  }
+  25% {
+    bottom: 450px;
+    left: 310px;
+  }
+  50% {
+    bottom: 450px;
+    left: 400px;
+  }
+  100% {
+    bottom: 100px;
+    left: 400px;
+  }
+}
+
+.powerup {
+  position: absolute;
+  height: 50px;
+  bottom: 100px;
+  left: 400px;
+  animation: power;
+  animation-duration: 2s;
+}
+
+.hidden {
+  visibility: hidden;
 }
