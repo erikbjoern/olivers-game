@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import figur from "./figur.png";
+import figur from "./images/stjerne.png";
+import box from "./images/box.png"
 import "./App.css";
 
 class App extends Component {
@@ -59,6 +60,7 @@ class App extends Component {
 
   render() {
     return (
+      <>
         <img
           src={figur}
           className={this.state.jumping ? "jumping" : ""}
@@ -66,6 +68,13 @@ class App extends Component {
           alt="figur"
           style={{ left: this.state.left }}
         />
+        <img
+          src={box}
+          className="box-one"
+          alt="box"
+        />
+        <div className="ground"></div>
+        </>
     );
   }
 }

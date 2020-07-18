@@ -1,18 +1,37 @@
 #figur {
   position: absolute;
-  bottom: 0;
-  height: 200px;
+  bottom: 100px;
+  height: 100px;
 }
 
 @keyframes jump {
   0%, 100% {
-    bottom: 0;
+    bottom: 100px;
   }
   30% {
-    bottom: 200px;
+    bottom: 300px;
   }
 }
 
 .jumping {
   animation: jump 1s;
+}
+
+.ground {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  height: 100px;
+  background-color: orange;
+}
+
+body {
+  background-color: rgb(122, 195, 255);
+}
+
+.box-one {
+  position: absolute;
+  height: 70px;
+  bottom: 380px;
+  left: 300px;
 }
