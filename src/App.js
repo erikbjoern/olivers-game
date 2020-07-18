@@ -38,8 +38,8 @@ class App extends Component {
     }
 
     if (event.keyCode === 38 && !this.state.jumping) {
-      this.state.left > 200 &&
-        this.state.left < 400 &&
+      this.state.left > 230 &&
+        this.state.left < 330 &&
         this.setState({ powerup: true });
       this.setState({ jumping: true });
       onanimationend = () => {
