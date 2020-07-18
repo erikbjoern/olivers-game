@@ -9,7 +9,7 @@ class App extends Component {
     left: 0,
     jumping: false,
     keyIsPressed: false,
-    powerup: false,
+    poweredUp: false,
   };
 
   componentDidMount() {
@@ -40,7 +40,7 @@ class App extends Component {
     if (event.keyCode === 38 && !this.state.jumping) {
       this.state.left > 230 &&
         this.state.left < 330 &&
-        this.setState({ powerup: true });
+        this.setState({ poweredUp: true });
       this.setState({ jumping: true });
       onanimationend = () => {
         this.setState({ jumping: false });
@@ -64,24 +64,30 @@ class App extends Component {
   };
 
   render() {
+    const { jumping, poweredUp, left } = this.state;
     return (
       <>
-        <img
-          src={figur}
-          className={this.state.jumping ? "jumping" : ""}
-          id="figur"
-          alt="figur"
-          style={{ left: this.state.left }}
-        />
+        <div
+          id="characterContainer"
+          className={jumping ? "jumping" : ""}
+          style={{ left: left }}
+        >
+          <img
+            src={figur}
+            className={poweredUp && left > 300 && left < 450 ? "poweredUp" : ""}
+            id="figur"
+            alt="figur"
+          />
+        </div>
         <img
           src={box}
           id="box-one"
-          className={this.state.powerup ? "bumpBox" : ""}
+          className={poweredUp ? "bumpBox" : ""}
           alt="box"
         />
         <img
           src={powerup}
-          className={this.state.powerup ? "powerup" : "hidden"}
+          className={poweredUp ? "powerup" : "hidden"}
           alt="powerup"
         />
         <div className="ground"></div>
