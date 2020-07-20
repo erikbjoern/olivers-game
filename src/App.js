@@ -19,15 +19,25 @@ class App extends Component {
   }
 
   movementRight = () => {
-    const left = this.state.left
-    this.setState({ left: this.state.left + 10 });
-    this.state.showPowerUp && left > 300 && left < 450 && this.setState({ poweredUp: true })
+    const { left, showPowerUp, poweredUp } = this.state;
+    poweredUp
+      ? this.setState({ left: left + 30 })
+      : this.setState({ left: left + 10 });
+    showPowerUp &&
+      left > 300 &&
+      left < 450 &&
+      this.setState({ poweredUp: true });
   };
 
   movementLeft = () => {
-    const left = this.state.left
-    this.setState({ left: left - 10 });
-    this.state.showPowerUp && left > 300 && left < 450 && this.setState({ poweredUp: true })
+    const { left, showPowerUp, poweredUp } = this.state;
+    poweredUp
+      ? this.setState({ left: left - 30 })
+      : this.setState({ left: left - 10 });
+    showPowerUp &&
+      left > 300 &&
+      left < 450 &&
+      this.setState({ poweredUp: true });
   };
 
   keyDownHandler = (event) => {
