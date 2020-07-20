@@ -9,6 +9,7 @@ class App extends Component {
     left: 0,
     jumping: false,
     keyIsPressed: false,
+    showPowerUp: false,
     poweredUp: false,
   };
 
@@ -18,11 +19,15 @@ class App extends Component {
   }
 
   movementRight = () => {
+    const left = this.state.left
     this.setState({ left: this.state.left + 10 });
+    this.state.showPowerUp && left > 300 && left < 450 && this.setState({ poweredUp: true })
   };
 
   movementLeft = () => {
-    this.setState({ left: this.state.left - 10 });
+    const left = this.state.left
+    this.setState({ left: left - 10 });
+    this.state.showPowerUp && left > 300 && left < 450 && this.setState({ poweredUp: true })
   };
 
   keyDownHandler = (event) => {
@@ -40,7 +45,7 @@ class App extends Component {
     if (event.keyCode === 38 && !this.state.jumping) {
       this.state.left > 230 &&
         this.state.left < 330 &&
-        this.setState({ poweredUp: true });
+        this.setState({ showPowerUp: true });
       this.setState({ jumping: true });
       onanimationend = () => {
         this.setState({ jumping: false });
@@ -64,7 +69,7 @@ class App extends Component {
   };
 
   render() {
-    const { jumping, poweredUp, left } = this.state;
+    const { jumping, showPowerUp, poweredUp, left } = this.state;
     return (
       <>
         <div
@@ -74,7 +79,7 @@ class App extends Component {
         >
           <img
             src={figur}
-            className={poweredUp && left > 300 && left < 450 ? "poweredUp" : ""}
+            className={poweredUp ? "poweredUp" : ""}
             id="figur"
             alt="figur"
           />
@@ -82,12 +87,12 @@ class App extends Component {
         <img
           src={box}
           id="box-one"
-          className={poweredUp ? "bumpBox" : ""}
+          className={showPowerUp ? "bumpBox" : ""}
           alt="box"
         />
         <img
           src={powerup}
-          className={poweredUp ? "powerup" : "hidden"}
+          className={showPowerUp && !poweredUp ? "powerup" : "hidden"}
           alt="powerup"
         />
         <div className="ground"></div>
