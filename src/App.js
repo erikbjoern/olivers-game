@@ -20,9 +20,7 @@ class App extends Component {
 
   movementRight = () => {
     const { left, showPowerUp, poweredUp } = this.state;
-    poweredUp
-      ? this.setState({ left: left + 30 })
-      : this.setState({ left: left + 10 });
+    this.state.left < window.screen.availWidth - 140 && this.setState({ left: poweredUp ? left + 30 : left + 10 })
     showPowerUp &&
       left > 300 &&
       left < 450 &&
@@ -31,9 +29,7 @@ class App extends Component {
 
   movementLeft = () => {
     const { left, showPowerUp, poweredUp } = this.state;
-    poweredUp
-      ? this.setState({ left: left - 30 })
-      : this.setState({ left: left - 10 });
+    this.state.left > 0 && this.setState({ left: poweredUp ? left - 30 : left - 10 })
     showPowerUp &&
       left > 300 &&
       left < 450 &&
@@ -42,11 +38,11 @@ class App extends Component {
 
   keyDownHandler = (event) => {
     if (!this.state.keyIsPressed) {
-      if (event.keyCode === 39 && this.state.left < 990) {
+      if (event.keyCode === 39) {
         this.setState({ keyIsPressed: true });
         this.moveRight = setInterval(this.movementRight, 20);
       }
-      if (event.keyCode === 37 && this.state.left >= 10) {
+      if (event.keyCode === 37) {
         this.setState({ keyIsPressed: true });
         this.moveLeft = setInterval(this.movementLeft, 20);
       }
