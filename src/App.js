@@ -104,7 +104,7 @@ class App extends Component {
         <img
           src={box}
           id="box-one"
-          className={showPowerUp ? "bumpBox" : ""}
+          className={jumping && left > 230 && left < 330 ? "bumpBox" : ""}
           alt="box"
         />
         <img
