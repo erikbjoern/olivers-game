@@ -20,21 +20,32 @@ class App extends Component {
 
   movementRight = () => {
     const { left, showPowerUp, poweredUp } = this.state;
-    this.state.left < window.screen.availWidth - 140 && this.setState({ left: poweredUp ? left + 30 : left + 10 })
+    this.state.left < window.screen.availWidth - 140 &&
+      this.setState({ left: poweredUp ? left + 30 : left + 10 });
     showPowerUp &&
       left > 300 &&
       left < 450 &&
-      this.setState({ poweredUp: true });
+      this.powerUp();
   };
 
   movementLeft = () => {
     const { left, showPowerUp, poweredUp } = this.state;
-    this.state.left > 0 && this.setState({ left: poweredUp ? left - 30 : left - 10 })
+    this.state.left > 0 &&
+      this.setState({ left: poweredUp ? left - 30 : left - 10 });
     showPowerUp &&
       left > 300 &&
       left < 450 &&
-      this.setState({ poweredUp: true });
+      this.powerUp();
   };
+
+  powerUp = () => {
+    this.setState({ poweredUp: true })
+    setTimeout(this.resetPowerUp, 7000)
+  };
+
+  resetPowerUp = () => {
+    this.setState({ poweredUp: false, showPowerUp: false })
+  }
 
   keyDownHandler = (event) => {
     if (!this.state.keyIsPressed) {
